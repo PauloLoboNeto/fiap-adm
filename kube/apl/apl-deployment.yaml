@@ -1,0 +1,24 @@
+# Create a deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fiap-autenticacao
+spec:
+  selector:
+    matchLabels:
+      app: fiap-autenticacao
+  replicas: 1
+  template:
+    metadata:
+#      annotations:
+#        eks.amazonaws.com/role-arn: arn:aws:iam::231670762225:role/my-app-service-account
+      labels:
+        app: fiap-adm
+    spec:
+      containers:
+        - name: fiap-adm
+          image: plobon/fiap-adm:v1
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 9093
+

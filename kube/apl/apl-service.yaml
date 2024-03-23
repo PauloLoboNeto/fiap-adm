@@ -1,0 +1,19 @@
+# Create a service
+kind: Service
+apiVersion: v1
+metadata:
+  name: fiap-adm
+  annotations:
+#    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+#    service.beta.kubernetes.io/aws-load-balancer-tls-cert: arn:aws:acm:us-east-1:231670762225:certificate/319deaa4-751c-4bc6-ac91-bf19c06294dd
+#    service.beta.kubernetes.io/aws-load-balancer-tls-ports: "https"
+    eks.amazonaws.com/role-arn: "arn:aws:iam::231670762225:role/eks-eks-nodes"
+spec:
+  selector:
+    app: fiap-adm
+  ports:
+    - name: http
+      port: 443
+      protocol: TCP
+      targetPort: 9091
+  type: NodePort
